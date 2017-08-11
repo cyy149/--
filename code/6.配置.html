@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		
+
+		var defaultSetting = { //轮播图插件默认的设置
+				speed:2000,
+				currentIndex:0,
+				isAuto:true,
+				isTxt:true,
+				directorPos:"center"
+			}
+		//我希望你能够综合用户的设置和系统默认设置，最后得到一个综合的设置
+		//规则是：
+		//（1）如果属性A出现在用户设置中，同时在系统设置中也有，则最后的结果应该以用户设置为准。
+		//（2）如果属性A出现在系统设置中，但用户设置中没有，则最后的结果中以系统设置为准.
+		// (3) 如果属性A出现在用户设置中，但在在系统设置中没有，最后的结果中丢弃这个属性。
+		// 
+		
+		function extend(defaultSetting,userSetting){
+			
+			//创建一个空对象
+			var obj={};
+
+			for(var p in defaultSetting){
+				if(userSetting.hasOwnProperty(p)){ //(1)
+					obj[p] = userSetting[p];
+				}
+				else{							   //(2)
+					obj[p] = defaultSetting[p];
+				}
+			}
+			
+			return obj;
+		}
+
+		var userSetting= {directorPos:"right"} ;// 用户的设置
+		var setting = extend(defaultSetting,userSetting);
+		console.info(setting);
+		//结果是：
+		//{ //轮播图插件默认的设置
+			// 	speed:2000,
+			// 	currentIndex:0,
+			// 	isAuto:true,
+			// 	isTxt:true,
+			// 	directorPos:"right"
+			// }
+			//
+			//  
+		var userSetting= {speed:3000,isAuto:false,abc:123} ;// 用户的设置
+		var setting = extend(defaultSetting,userSetting);
+		console.info(setting);
+		//结果是：
+		//{ //轮播图插件默认的设置
+			// 	speed:3000,
+			// 	currentIndex:0,
+			// 	isAuto:false,
+			// 	isTxt:true,
+			// 	directorPos:"center"
+			// }
+
+
+
+	</script>
+</body>
+</html>

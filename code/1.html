@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.slider-wrap{
+			margin:50px auto;
+			width: 180px;
+			border:1px solid red;
+			height: 170px;
+			overflow: hidden;
+		}
+		.slier-content{
+			/*transition :transform .5s;*/
+			/*transform: translateX(-100px);*/
+			width: 711px;height: 161px;background: url(1.jpg) no-repeat;}
+
+	</style>
+</head>
+<body>
+	<div class="slider-wrap">
+		<div class="slier-content"></div>
+	</div>
+	<script>
+		var div = document.querySelector(".slier-content");
+		console.info(div);
+		var currentIndex = 0;
+		var currentX = 0;
+
+		function moveto(n){
+			currentIndex = n;
+			div.style.transition = "transform .5s";
+			currentX = currentIndex * -178 + "px";
+			// div.style.transition = "transform .5s";
+			div.style.transform="translateX("+currentX+")";
+
+		}
+		
+		function next(x){
+			if(x){
+				currentIndex = x;
+			}
+			else
+				currentIndex ++ ;
+			div.style.transition = "transform .5s";
+
+			currentX = currentIndex * -178 + "px";
+
+			div.style.transform="translateX("+currentX+")";
+			if(currentIndex == 3){
+				div.style.transform="translateX("+currentX+")";
+			}
+			else{
+				// 
+			}
+		}
+
+		// setInterval(function () {
+		// 	next();
+		// },1000);
+
+		div.addEventListener("transitionend",function(){
+			if(currentIndex == 3){
+				//alert(3);
+				div.style.transition="";
+				div.style.transform="translateX(0)";
+				currentIndex = 0;
+				//alert(3.1);
+			}
+		})
+
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul,li,ol,p{list-style: none;margin:0;padding:0;}
+		.slider{position:relative;width: 800px;height: 400px;margin:50px auto;border:5px solid red;}
+		img{width: 800px;height: 400px;}
+		.btn{position: absolute;width:50px;height: 50px;border-radius: 25px;top:50%;
+			transform: translateY(-50%);
+			/*margin-top:-25px; */
+			background-color: #fff;color:black; }
+		.btn-left{left:30px;}
+		.btn-right{right:30px;}
+		ol{text-align:center;position: absolute;width: 100px;height: 20px;background-color: rgba(255,255,255,.5);bottom:15px;left:50%;margin-left:-50px;}
+		ol li{display: inline-block;margin-top:3px;width: 14px;height: 14px;border-radius: 7px;background-color: #000;font-size: 12px;}
+		.txt{position: absolute;bottom:0px;text-indent:20px;line-height:40px;height: 40px;width: 100%;background-color:rgba(0,0,0,.5); color: #fff;font-size: 20px; }
+		.current{background-color: red;}/*当前的角标*/
+	</style>
+</head>
+<body>
+	<div class="slider" id="slider1">
+		<ul class="slider-content">
+			<li style="display:block;"><a href=""><img src="./img/html5.jpg" alt=""></a></li>
+			<li style="display:none;"><a href=""><img src="./img/css.jpg" alt=""></a></li>
+			<li style="display:none;"><a href=""><img src="./img/js.jpg" alt=""></a></li>
+			<li style="display:none;"><a href=""><img src="./img/less.jpg" alt=""></a></li>
+		</ul>
+		<span class="btn btn-left">前</span>
+		<span class="btn btn-right">后</span>
+		<p class="txt">html5</p>
+
+		<ol class="slider-director">
+			<li class="current">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ol>
+	</div>
+
+	<script>
+		//contentId是页面上要转成轮播图效果的那个容器的id
+		function Slider(contentId) {
+			// 获取整体轮播图的容器
+			this.container = document.getElementById(contentId);
+			if(this.container == null){
+				console.info("没有这个id，你看清楚再来");
+				return {};
+			}
+			// 获取图片集合
+			this.lis          = this.container.querySelector(".slider-content").querySelectorAll("li");
+			this.len          = this.lis.length;//图片的张数
+			this.btnRight     = document.querySelector(".btn-right");  //右按钮
+			this.btnLeft      = document.querySelector(".btn-left");;  //左按钮
+			this.directors     = document.querySelector(".slider-director").querySelectorAll("li"); //角标；
+			this.txtArea      = document.querySelector(".txt");;//文本区
+			this.currentIndex = 0;							//当前显示的那张图的编号
+			this.speed        = 2000; 						// 每隔2s,切换一张图 2000ms 单位是ms
+
+			this.init();			//初始化，绑定一些事件
+		}
+		Slider.prototype.init = function(){
+			var that = this;
+			this.btnRight.onclick =function(){
+				that.next();
+			}
+			this.btnLeft.onclick =function(){
+				that.prev();
+			}
+
+			for (var i = 0; i < this.directors.length; i++) {
+
+				this.directors[i].onmouseover = function(abc){
+					return function(){
+						that.goto(abc);
+					}
+				}(i)
+				// this.directors[i].abc = i;
+				// this.directors[i].onmouseover = function(){
+				// 	that.goto(this.abc);
+				// }
+			}
+		}
+		// 上一张（）
+		Slider.prototype.prev = function(){
+			//更新currentIndex
+			this.currentIndex -= 1;
+			if(this.currentIndex < 0)
+				this.currentIndex = this.len - 1;
+			this.goto(this.currentIndex)
+		}
+		//下一张（）
+		Slider.prototype.next = function(){
+// debugger;
+			//更新currentIndex
+			this.currentIndex += 1;
+			if(this.currentIndex >= this.len)
+				this.currentIndex = 0;
+
+			this.goto(this.currentIndex);
+		}
+		//跳到指定张  n：[0,this.len-1]  
+		Slider.prototype.goto = function (n) {
+			// 把所有的图片改成display：none
+// debugger;
+			for(var i = 0;i<this.len;i++){
+				this.lis[i].style.display="none";
+			}
+			// 把当前currentIndex改成display:block;
+			this.lis[n].style.display = "block";
+
+			for(var i =0; i<this.len;i++){
+				this.directors[i].className = ""; //清除所有的className
+			}
+			this.directors[n].className="current";
+
+		}
+		//自动播放（）
+		Slider.prototype.auto = function () {}
+		//暂停播放（）
+		Slider.prototype.pause = function(){}
+		//继续方法（）
+		Slider.prototype.continue = function(){}
+
+
+		var s1 = new Slider("slider1"); //要把id为slider1的这个区域变成轮播图
+
+		console.info(s1);
+
+	</script>
+</body>
+</html>

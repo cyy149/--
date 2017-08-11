@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul,li,ol,p{list-style: none;margin:0;padding:0;}
+		.slider{position:relative;width: 800px;height: 400px;margin:50px auto;}
+		.slider-content li{position: absolute;left:0;top:0;transition: opacity .5s;}
+		img{width: 800px;height: 400px;}
+		.btn{position: absolute;width:50px;height: 50px;border-radius: 25px;top:50%;
+			transform: translateY(-50%);
+			/*margin-top:-25px; */
+			background-color: #fff;color:black; }
+		.btn-left{left:30px;}
+		.btn-right{right:30px;}
+		ol{text-align:center;position: absolute;height: 20px;background-color: rgba(255,255,255,.5);bottom:15px;}
+		ol li{display: inline-block;margin:3px 5px 0;width: 14px;height: 14px;border-radius: 7px;background-color: #000;font-size: 12px;transition: transform .5s}
+		.txt{position: absolute;bottom:0px;text-indent:20px;line-height:40px;height: 40px;width: 100%;background-color:rgba(0,0,0,.5); color: #fff;font-size: 20px; }
+		.current{background-color: red;transform: scale(2);}/*当前的角标*/
+	</style>
+</head>
+<body>
+	<div class="slider" data-speed="3000" data-currentIndex="1" data-isAuto="false" data-directorPos="right" data-isTxt="false">
+		<ul class="slider-content">
+			<li><a href=""><img src="./img/html5.jpg"  alt="前端的基础html5"></a></li>
+			<li><a href=""><img src="./img/css.jpg"    alt="css3是很强大的"></a></li>
+			<li><a href=""><img src="./img/js.jpg"     alt="js是更强大的"></a></li>
+		
+		</ul>
+	</div>
+<hr>
+<hr>
+	<div class="slider" data-speed="3000" data-currentIndex="1" data-isTxt="true" data-isAuto="true">
+		<ul class="slider-content">
+			<li><a href=""><img src="./img/less.jpg"   alt="让css可以编程"></a></li>
+			<li><a href=""><img src="./img/nodejs.jpg" alt="nodejs.jpg"></a></li>
+			<li><a href=""><img src="./img/react.jpg"  alt="react.jpg"></a></li>
+			<li><a href=""><img src="./img/vue.jpg"  alt="vuejs.jpg"></a></li>
+		</ul>
+	</div>
+	<!-- <script src="tq.js"></script> -->
+	<script src="SliderAuto.js"></script>
+
+	<script>
+		// var s1 = new Slider("slider1",{directorPos :"right"}); //要把id为slider1的这个区域变成轮播图
+		
+		// console.info(s1)
+
+		// var s2 = new Slider("slider2",{directorPos :"center",speed:1000,currentIndex:2}); //要把id为slider1的这个区域变成轮播图
+		
+		// console.info(s1)
+
+	</script>
+</body>
+</html>
